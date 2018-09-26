@@ -1,0 +1,31 @@
+---
+- name: "Create logical volume groups"
+  lvg:
+    vg: "{{ item.name }}"
+    pvs: "{{ item.pvs }}"
+    state: present
+  loop: "{{ lvm_management_vgs }}"
+
+- name: "Create logical volumes in volume groups"
+  lvol:
+    vg: "{{ item.vg }}"
+    lv: "{{ item.name }}"
+    size: "{{ item.size }}"
+    state: present
+  loop: "{{ lvm_management_lvs }}"
+
+- name: "Format logical volumes"
+  filesystem:
+    dev: "/dev/{{ item.vg }}/{{ item.name }}"
+    fstype: "{{ item.fstype | default(lvm_management_default_fstype) }}"
+  loop: "{{ lvm_management_lvs }}"
+
+- name: "Manage fstab and mount volumes to their mountpoints"
+  mount:
+    path: "{{ item.mountpoint }}"
+    src: "/dev/{{ item.vg }}/{{ item.name }}"
+    fstype: "{{ item.fstype | default(lvm_management_default_fstype) }}"
+    state: mounted
+    dump: "{{ item.fstab_dump | default(omit) }}"
+    passno: "{{ item.fstab_passno | default(omit) }}"
+  loop: "{{ lvm_management_lvs }}"

@@ -1,0 +1,19 @@
+---
+# Default filesystem to use for logical volumes
+lvm_management_default_fstype: ext4
+
+# List of volume groups to be created
+lvm_management_vgs: []
+  # - name: vg01  # name of the volume group
+  #   pvs: /dev/sdb,/dev/sdc  # comma separated list of physical volumes to use
+
+# List of logical volumes to be created
+# List higest mountpoints firts (i.e. /mount before /mnt/sub/mount)
+lvm_management_lvs: []
+  # - name: lv_01  # name of the the volume group
+  #   size: 1G  # size of volume. man lvcreate => see -L option
+  #   mountpoint: /mnt/volume1  # Will be created if needed
+  #   fstype: xfs  # Optionnal. Will default to lvm_management_default_fstype
+  #   fstab_dump: 1  # Optionnal. Defaults to 0
+  #   fstab_passno: 2  # Optionnal. Defaults to 0
+  #   fstab_opts: noauto  # Optionnal. Defaults to defaults

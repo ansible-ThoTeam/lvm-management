@@ -1,0 +1,24 @@
+galaxy_info:
+  author: Olivier Clavel
+  description: Manage lvm volumes
+
+  license: MIT
+
+  min_ansible_version: 2.6
+
+  platforms:
+    - name: RHEL
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - system
+    - lvm
+
+dependencies: []
