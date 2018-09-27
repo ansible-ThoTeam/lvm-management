@@ -5,8 +5,6 @@ extends: default
 rules:
   document-start:
     level: error
-    ignore: |
-      secrets
   line-length:
     max: 250
   truthy: disable
