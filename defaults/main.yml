@@ -1,6 +1,12 @@
 ---
 # Default filesystem to use for logical volumes
 lvm_management_default_fstype: ext4
+# Default dump value in fstab. See man fstab
+lvm_management_default_fstab_dump: 0
+# Default passno value in fstab. See man fstab
+lvm_management_default_fstab_passno: 0
+# Default volume group for logical volume creation
+lvm_management_default_vg: vg01
 
 # List of volume groups to be created
 lvm_management_vgs: []

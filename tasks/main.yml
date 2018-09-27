@@ -8,7 +8,7 @@
 
 - name: "Create logical volumes in volume groups"
   lvol:
-    vg: "{{ item.vg }}"
+    vg: "{{ item.vg | default(lvm_management_default_vg) }}"
     lv: "{{ item.name }}"
     size: "{{ item.size }}"
     state: present
@@ -26,6 +26,6 @@
     src: "/dev/{{ item.vg }}/{{ item.name }}"
     fstype: "{{ item.fstype | default(lvm_management_default_fstype) }}"
     state: mounted
-    dump: "{{ item.fstab_dump | default(omit) }}"
-    passno: "{{ item.fstab_passno | default(omit) }}"
+    dump: "{{ item.fstab_dump | default(lvm_management_default_fstab_dump) }}"
+    passno: "{{ item.fstab_passno | default(lvm_management_default_fstab_passno) }}"
   loop: "{{ lvm_management_lvs }}"
